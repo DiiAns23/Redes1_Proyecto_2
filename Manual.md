@@ -690,15 +690,8 @@ copy running-config startup-config
 
 ## **RESULTADOS**
 
-![Tabla de resultados](https://github.com/Josue-Zea/pruebas/blob/master/pictures/Tabla.png "This is a sample image.")
 
-Si desea probar la calculadora FLSM puede hacerlo dando click [aqui](https://arcadio.gq/calculadora-subredes-flsm.html).
-
-<div id="result2">
-
-## **RESULTADOS**
-
-![Tabla de resultados](https://github.com/Josue-Zea/pruebas/blob/master/pictures/Tabla.png "This is a sample image.")
+![Tabla de resultados](https://github.com/Josue-Zea/pruebas/blob/master/pictures/Tabla2.png "This is a sample image.")
 
 Si desea probar la calculadora FLSM puede hacerlo dando click [aqui](https://arcadio.gq/calculadora-subredes-flsm.html).
 
