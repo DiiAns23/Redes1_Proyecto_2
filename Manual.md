@@ -4,27 +4,28 @@
 ## **INDICE** 📚
 -----------------------------------------
 
--   [*Indice*](#indice)
--   [*Integrantes*](#integrantes)
--   [*Como subdividir una Red*](#topo)
--   [*Red Topología 1*](#cls)
-    - [*Calcular el número de bits de subred necesarios*](#cl1)
-    - [*Obtener las subredes*](#cl2)
-    - [*Calcular los parámetros de cada subred*](#cl3)
-    - [*Configuracion de Red*](#cl4)
-    - [*Resultado*](#result)
--   [*Red Topología 2*](#cls2)
-    - [*Calcular el número de bits de subred necesarios*](#cl5)
-    - [*Obtener las subredes*](#cl6)
-    - [*Calcular los parámetros de cada subred*](#cl7)
-    - [*Configuracion de Red*](#cl8)
-    - [*Resultado*](#result2)
--   [*Red Topología 3*](#cls3)
-    - [*Calcular el número de bits de subred necesarios*](#cl9)
-    - [*Obtener las subredes*](#cl10)
-    - [*Calcular los parámetros de cada subred*](#cl11)
-    - [*Configuracion de Red*](#cl12)
-    - [*Resultado*](#result3)
+-   [Indice](#indice)
+-   [Integrantes](#integrantes)
+-   [Como subdividir una Red](#topo)
+-   [Red Topología 1](#cls)
+    - [Calcular el número de bits de subred necesarios](#cl1)
+    - [Obtener las subredes](#cl2)
+    - [Calcular los parámetros de cada subred](#cl3)
+    - [Configuracion de Red](#cl4)
+    - [Resultado](#result)
+-   [Red Topología 2](#cls2)
+    - [Calcular el número de bits de subred necesarios](#cl5)
+    - [Obtener las subredes](#cl6)
+    - [Calcular los parámetros de cada subred](#cl7)
+    - [Configuracion de Red](#cl8)
+    - [Resultado](#result2)
+-   [Red Topología 3](#cls3)
+    - [Calcular el número de bits de subred necesarios](#cl9)
+    - [Obtener las subredes](#cl10)
+    - [Calcular los parámetros de cada subred](#cl11)
+    - [Configuracion de Red](#cl12)
+    - [Resultado](#result3)
+-   [Configuracion GLBP y HRSP](#conf)
 
 <div id = "integrantes">
 
@@ -868,3 +869,39 @@ copy running-config startup-config
 
 Si desea probar la calculadora FLSM puede hacerlo dando click [aqui](https://arcadio.gq/calculadora-subredes-flsm.html).
 
+
+<div id="conf">
+
+## **GLBP Y HRSP**
+```shell
+--R2--
+conf t
+int f0/0
+standby 1 ip 10.4.0.9
+standby 1 priority 150
+standby 1 preempt
+end
+
+--R4--
+conf t
+int f0/0
+standby 1 ip 10.4.0.13
+end
+
+
+--R1--
+conf t
+int f0/0
+glbp 1 ip 10.4.0.10
+glbp 1 preempt
+glbp 1 priority 150
+glbp 1 load-balancing round-robin
+end
+
+--R3--
+conf t
+int f0/0
+glbp 1 ip 10.4.0.14
+glbp 1 load-balancing round-robin
+end
+```
