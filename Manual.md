@@ -398,6 +398,179 @@ _**NOTA:** Si lo desea puede realizar los calculos sin utilizar números binaios
 
 ## **CONFIGURACION DE RED**
 
+## *SW1*
+
+- ### **CONFIGURACION DE VLAN'S**
+```shell
+configure terminal
+vlan 10
+name RHUMANOS
+exit
+vlan 20
+name CONTABILIDAD
+exit
+vlan 30
+name VENTAS
+exit
+vlan 40
+name INFORMATICA
+exit
+
+spanning-tree vlan 10 root primary
+spanning-tree vlan 20 root primary
+spanning-tree vlan 30 root primary
+spanning-tree vlan 40 root primary
+
+do sh vlan-sw
+```
+
+- ### *CONFIGURACION DE PUERTOS*
+  
+```shell
+hostname CENTRAL
+vtp domain GRUPO4
+vtp password grupo4
+vtp version 2
+vtp mode server
+exit
+
+sh vtp status
+configure terminal
+
+int f1/0
+switchport mode trunk
+switchport trunk allowed vlan 1,10,20,30,40,1002-1005
+exit
+
+int f1/1
+switchport mode trunk
+switchport trunk allowed vlan 1,20,30,1002-1005
+exit
+
+int f1/2
+switchport mode trunk
+switchport trunk allowed vlan 1,10,40,1002-1005
+exit
+
+exit
+
+copy running-config startup-config
+
+```
+
+## *R1*
+```shell
+
+conf t
+int f0/0.10
+exit
+int f0/0.20
+exit
+int f0/0.30
+exit
+int f0/0.40
+exit
+do sh ip int br
+
+int f0/0
+no shutdown
+exit
+
+int f0/0.10
+encapsulation dot1Q 10
+ip address 192.168.44.62 255.255.255.192
+no shutdown
+exit
+
+int f0/0.20
+encapsulation dot1Q 20
+ip address 192.168.44.126 255.255.255.192
+no shutdown
+exit
+
+int f0/0.30
+encapsulation dot1Q 30
+ip address 192.168.44.190 255.255.255.192
+no shutdown
+exit
+
+int f0/0.40
+encapsulation dot1Q 40
+ip address 192.168.44.254 255.255.255.192
+no shutdown
+exit
+
+int f1/0
+ip address 10.4.0.2 255.255.255.252
+no shutdown
+exit
+
+int f2/0
+ip address 10.4.0.6 255.255.255.252
+no shutdown
+exit
+
+
+ip route 10.4.0.8 255.255.255.252 10.4.0.1
+ip route 10.4.0.12 255.255.255.252 10.4.0.5
+
+ip route 10.4.0.16 255.255.255.252 10.4.0.1
+ip route 10.4.0.20 255.255.255.252 10.4.0.5
+
+ip route 192.168.45.0 255.255.255.0 10.4.0.1
+ip route 192.168.45.0 255.255.255.0 10.4.0.5
+
+exit
+
+sh ip int br
+
+copy running-config startup-config
+
+```
+
+## *Subneting Topologia 2*
+
+- ### Tabla Hosts
+
+    | **VLAN** | **NOMBRE**   | **HOSTS** |
+    |----------|--------------|-----------|
+    | 30       | VENTAS       | 123       |
+    | 40       | INFORMATICA  | 37        |
+    | 10       | RRHH         | 21        |
+    | 20       | CONTABILIDAD | 8         |
+
+## *Asignacion de IP's a las VPC'S*
+
+- ### Recursos Humanos
+  ```shell
+  ip 192.168.44.1 255.255.255.224 192.168.44.62
+  ```
+  
+- ### Ventas
+  ```shell
+  ip 192.168.44.129 255.255.255.128 192.168.44.190
+  ```
+
+- ### Informatica
+  ```shell
+  ip 192.168.44.193 255.255.255.192 192.168.44.254
+  ```
+
+- ### Contabilidad
+  ```shell
+  ip 192.168.44.165 255.255.255.240 192.168.44.254
+  ```
+    
+<div id="result2">
+
+## **RESULTADOS**
+
+
+![Tabla de resultados](https://github.com/Josue-Zea/pruebas/blob/master/pictures/Tabla2.png "This is a sample image.")
+
+Si desea probar la calculadora FLSM puede hacerlo dando click [aqui](https://arcadio.gq/calculadora-subredes-flsm.html).
+
+    
 <div id="cls3">
 
 ### **RED TOPOLOGIA 3 📋**
